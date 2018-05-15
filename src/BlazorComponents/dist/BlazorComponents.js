@@ -1,33 +1,6 @@
 ﻿var BlazorCharts = [];
 Blazor.BlazorCharts = BlazorCharts;
 
-var BlazorEditors = [];
-Blazor.BlazorEditors = BlazorEditors;
-
-Blazor.registerFunction('BlazorComponents.ChartJsInterop.InitializeBarChart', (data) => {
-	data = toCamel(data);
-
-	let thisChart = initializeChartjsChart(data, 'bar');
-
-	if (!BlazorCharts.find(currentChart => currentChart.id === data.canvasId)) {
-		BlazorCharts.push({ id: data.canvasId, chart: thisChart });
-	}
-	return true;
-});
-
-Blazor.registerFunction('BlazorComponents.MonacoInterop.InitializeEditor', (data) => {
-	data = toCamel(data);
-
-	let thisEditor = monaco.editor.create(document.getElementById(data.id), {
-		value: data.script,
-		language: data.language
-	});
-
-	if (!BlazorEditors.find(currentEditor => currentEditor.id === data.id)) {
-		BlazorCharts.push({ id: data.id, editor: thisEditor });
-	}
-});
-
 Blazor.registerFunction('BlazorComponents.ChartJsInterop.InitializeLineChart', (data) => {
 	data = toCamel(data);
 
@@ -56,66 +29,6 @@ Blazor.registerFunction('BlazorComponents.ChartJsInterop.UpdateLineChart', (data
 	return true;
 });
 
-Blazor.registerFunction('BlazorComponents.MonacoInterop.UpdateEditor', (data) => {
-	data = toCamel(data);
-
-	if (!BlazorEditors.find(currentEditor => currentEditor.id === data.editorId)) {
-		throw `Could not find a editor with the given id. ${data.id}`;
-	}
-	let myEditor = BlazorEditors.find(currentEditor => currentEditor.id === data.id);
-
-	let myEditorIndex = BlazorEditors.findIndex(currentEditor => currentEditor.id === data.id);
-
-	data.script = myEditor.getValue();
-
-	return data;
-});
-
-Blazor.registerFunction('BlazorComponents.ChartJsInterop.UpdateBarChart', (data) => {
-	data = toCamel(data);
-
-	if (!BlazorCharts.find(currentChart => currentChart.id === data.canvasId)) {
-		throw `Could not find a chart with the given id. ${data.canvasId}`;
-	}
-	let myChart = BlazorCharts.find(currentChart => currentChart.id === data.canvasId);
-
-	let myChartIndex = BlazorCharts.findIndex(currentChart => currentChart.id === data.canvasId);
-
-	myChart.chart = {};
-	let newChart = initializeChartjsChart(data, 'bar');
-	myChart.chart = newChart;
-
-	return true;
-});
-
-Blazor.registerFunction('BlazorComponents.ChartJsInterop.InitializeRadarChart', (data) => {
-	data = toCamel(data);
-
-	let thisChart = initializeChartjsChart(data, 'radar');
-
-	if (!BlazorCharts.find(currentChart => currentChart.id === data.canvasId)) {
-		BlazorCharts.push({ id: data.canvasId, chart: thisChart });
-	}
-	return true;
-});
-
-Blazor.registerFunction('BlazorComponents.ChartJsInterop.UpdateRadarChart', (data) => {
-	data = toCamel(data);
-
-	if (!BlazorCharts.find(currentChart => currentChart.id === data.canvasId)) {
-		throw `Could not find a chart with the given id. ${data.canvasId}`;
-	}
-	let myChart = BlazorCharts.find(currentChart => currentChart.id === data.canvasId);
-
-	let myChartIndex = BlazorCharts.findIndex(currentChart => currentChart.id === data.canvasId);
-
-	myChart.chart = {};
-	let newChart = initializeChartjsChart(data, 'radar');
-	myChart.chart = newChart;
-
-	return true;
-});
-
 function initializeChartjsChart(data, type) {
 	let ctx = document.getElementById(data.canvasId);
 	let myChart = new Chart(ctx, {
@@ -126,6 +39,35 @@ function initializeChartjsChart(data, type) {
 
 	return myChart;
 }
+
+var BlazorEditors = [];
+Blazor.BlazorEditors = BlazorEditors;
+
+Blazor.registerFunction('BlazorComponents.MonacoInterop.InitializeEditor', (data) => {
+
+	let thisEditor = monaco.editor.create(document.getElementById(data.Id), {
+		value: data.Script,
+		language: data.Language
+	});
+
+	if (!BlazorEditors.find(currentEditor => currentEditor.Id === data.Id)) {
+		BlazorCharts.push({ id: data.Id, editor: thisEditor });
+	}
+});
+
+Blazor.registerFunction('BlazorComponents.MonacoInterop.UpdateEditor', (data) => {
+
+	if (!BlazorEditors.find(currentEditor => currentEditor.id === data.Id)) {
+		throw `Could not find a editor with the given id. ${data.Id}`;
+	}
+	let myEditor = BlazorEditors.find(currentEditor => currentEditor.Id === data.Id);
+
+	let myEditorIndex = BlazorEditors.findIndex(currentEditor => currentEditor.Id === data.Id);
+
+	data.Script = myEditor.getValue();
+
+	return data;
+});
 
 // current JSON utility within Blazor is bare-bone and does not camelCase the response JSON.
 // using the below snippet to perform camelCasing.

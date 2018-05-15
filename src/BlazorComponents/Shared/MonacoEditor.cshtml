@@ -2,13 +2,13 @@
 @using Microsoft.AspNetCore.Blazor.Components
 <div class="row">
 	<div class="col">
-		<div id="@EditorOptions.Id" width="@Width" height="@Height" style="width:800px;height:600px;border:1px solid grey"></div>
+		<div id="@EditorModel.Id" width="@Width" height="@Height" style="width:800px;height:600px;border:1px solid grey"></div>
 	</div>
 </div>
 @functions {
 
 [Parameter]
-EditorOptions EditorOptions { get; set; }
+EditorModel EditorModel { get; set; }
 
 [Parameter]
 int Width { get; set; } = 400;
@@ -18,10 +18,10 @@ int Height { get; set; } = 200;
 
 protected override void OnAfterRender()
 {
-	MonacoInterop.InitializeEditor(EditorOptions);
+	MonacoInterop.InitializeEditor(EditorModel);
 }
 
-public void UpdateEditor(EditorOptions editorOptions)
+public void UpdateEditor(EditorModel editorOptions)
 {
 	editorOptions = MonacoInterop.UpdateEditor(editorOptions);
 }

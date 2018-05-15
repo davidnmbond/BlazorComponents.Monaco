@@ -2,7 +2,7 @@
 
 namespace BlazorComponents.Monaco
 {
-	public class EditorOptions
+	public class EditorModel
 	{
 		public string Script { get; set; } = "// Code goes here";
 		public string Language { get; set; } = "javascript";

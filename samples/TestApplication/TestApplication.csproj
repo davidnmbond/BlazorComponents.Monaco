@@ -31,10 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <BlazorGenerate Remove="Pages\RadarChart.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <BlazorGenerate Remove="Pages\Editor.cshtml" />
   </ItemGroup>
 
