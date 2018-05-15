@@ -42,4 +42,8 @@ Known Isues:
   <ItemGroup>
     <BlazorGenerate Remove="Shared\ChartJsRadarChart.cshtml" />
   </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Shared\MonacoEditor.cshtml" />
+  </ItemGroup>
 </Project>

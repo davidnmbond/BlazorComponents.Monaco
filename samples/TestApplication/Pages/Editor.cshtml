@@ -1,0 +1,37 @@
+﻿@page "/editor"
+@using BlazorComponents.Monaco
+@using BlazorComponents.Shared
+
+<h2>Monaco using Blazor</h2>
+<div class="row">
+	<button class="btn btn-primary" onclick="@UpdateEditorOptions">Update Editor Options</button>
+</div>
+<MonacoEditor ref="_editor" EditorOptions="@_editorOptions" Width="600" Height="300" />
+@functions {
+EditorOptions _editorOptions { get; set; }
+MonacoEditor _editor;
+
+protected override void OnInit()
+{
+	_editorOptions = new EditorOptions
+	{
+		Language = "csharp",
+		Script = @"using System;
+
+// Awesomeness
+public class Test
+{
+	public void X()
+	{
+		Console.WriteLine(""Hello world!"");
+	}
+}"
+	};
+}
+
+public void UpdateEditorOptions()
+{
+	_editorOptions.Script = "// Silly comment\n" + _editorOptions.Script;
+	_editor.UpdateEditor(_editorOptions);
+}
+}

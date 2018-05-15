@@ -1,0 +1,28 @@
+﻿@using BlazorComponents.Monaco
+@using Microsoft.AspNetCore.Blazor.Components
+<div class="row">
+	<div class="col">
+		<div id="@EditorOptions.Id" width="@Width" height="@Height" style="width:800px;height:600px;border:1px solid grey"></div>
+	</div>
+</div>
+@functions {
+
+[Parameter]
+EditorOptions EditorOptions { get; set; }
+
+[Parameter]
+int Width { get; set; } = 400;
+
+[Parameter]
+int Height { get; set; } = 200;
+
+protected override void OnAfterRender()
+{
+	MonacoInterop.InitializeEditor(EditorOptions);
+}
+
+public void UpdateEditor(EditorOptions editorOptions)
+{
+	editorOptions = MonacoInterop.UpdateEditor(editorOptions);
+}
+}
