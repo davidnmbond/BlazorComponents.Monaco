@@ -1,21 +1,36 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>Test Application</title>
-    <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/site.css" rel="stylesheet" />
+	<meta charset="utf-8" />
+	<title>Test Application</title>
+	<base href="/" />
+	<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+	<link rel="stylesheet" data-name="vs/editor/editor.main" href="monaco-editor/min/vs/editor/editor.main.css">
+	<link href="css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <app>Loading...</app>
-
-    <!--<script src="css/bootstrap/bootstrap-native.min.js"></script>-->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script type="blazor-boot">
-    </script>
-    <script src="BlazorComponents.js"></script>
+	<app>Loading...</app>
+	<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+	<!--<script src="css/bootstrap/bootstrap-native.min.js"></script>-->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+	<script>var require = { paths: { 'vs': 'monaco-editor/min/vs' } };</script>
+	<script src="monaco-editor/min/vs/loader.js"></script>
+	<script src="monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+	<script src="monaco-editor/min/vs/editor/editor.main.js"></script>
+	<script type="blazor-boot">
+	</script>
+	<script src="BlazorComponents.js"></script>
+	<script>
+		var editor = monaco.editor.create(document.getElementById('container'), {
+			value: [
+				'function x() {',
+				'\tconsole.log("Hello world!");',
+				'}'
+			].join('\n'),
+			language: 'javascript'
+		});
+	</script>
 </body>
 </html>

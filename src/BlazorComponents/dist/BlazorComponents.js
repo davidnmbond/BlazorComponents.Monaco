@@ -1,5 +1,4 @@
-﻿
-var BlazorCharts = [];
+﻿var BlazorCharts = [];
 
 Blazor.BlazorCharts = BlazorCharts;
 
@@ -89,7 +88,6 @@ Blazor.registerFunction('BlazorComponents.ChartJsInterop.UpdateRadarChart', (dat
 
     return true;
 });
-
 
 function initializeChartjsChart(data, type) {
 
