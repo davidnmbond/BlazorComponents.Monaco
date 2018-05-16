@@ -29,7 +29,6 @@ protected override void OnAfterRender()
 
 public void EditorUpdate()
 {
-	Console.WriteLine($"Script was: {EditorModel.Script}");
 	EditorModel = MonacoInterop.EditorGet(EditorModel);
 	Console.WriteLine($"Script is now: {EditorModel.Script}");
 }
