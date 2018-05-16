@@ -19,7 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <BlazorGenerate Remove="Pages\Editor.cshtml" />
+    <BlazorGenerate Remove="Pages\Home.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BlazorGenerate Remove="Pages\Monaco.cshtml" />
   </ItemGroup>
 
 </Project>

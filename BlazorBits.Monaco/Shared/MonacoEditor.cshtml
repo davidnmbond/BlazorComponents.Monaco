@@ -11,10 +11,10 @@
 EditorModel EditorModel { get; set; }
 
 [Parameter]
-int Width { get; set; } = 400;
+int Width { get; set; } = 800;
 
 [Parameter]
-int Height { get; set; } = 200;
+int Height { get; set; } = 600;
 
 bool _alreadyRendered = false;
 
@@ -22,20 +22,20 @@ protected override void OnAfterRender()
 {
 	if (!_alreadyRendered)
 	{
-		MonacoInterop.EditorInitialize(EditorModel);
+		Interop.EditorInitialize(EditorModel);
 		_alreadyRendered = true;
 	}
 }
 
 public void EditorUpdate()
 {
-	EditorModel = MonacoInterop.EditorGet(EditorModel);
+	EditorModel = Interop.EditorGet(EditorModel);
 	Console.WriteLine($"Script is now: {EditorModel.Script}");
 }
 
 public void EditorSetValue(string newScript)
 {
 	EditorModel.Script = newScript;
-	EditorModel = MonacoInterop.EditorSet(EditorModel);
+	EditorModel = Interop.EditorSet(EditorModel);
 }
 }

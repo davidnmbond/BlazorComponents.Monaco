@@ -1,30 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <PoorMansBuildNumber>$([System.DateTime]::Now.ToString(MMddHHmmss))</PoorMansBuildNumber>
+    <PreviewSuffix>preview-$([System.DateTime]::UtcNow.ToString(yyyyMMddHHmm))</PreviewSuffix>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
-    <VersionPrefix>0.2</VersionPrefix>
-    <VersionSuffix>alpha-$(PoorMansBuildNumber)</VersionSuffix>
+    <VersionPrefix>1.0</VersionPrefix>
+    <VersionSuffix>$(PreviewSuffix)</VersionSuffix>
     <Title>BlazorComponents</Title>
     <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
     <Company />
-    <Authors>Muqeet Khan</Authors>
-    <Description>Library of useful components to be used within Blazor. Starting off with a simple ChartJS port to Blazor.</Description>
-    <RepositoryUrl>https://github.com/muqeet-khan/BlazorComponents</RepositoryUrl>
-    <PackageTags>Blazor Components ChartJS</PackageTags>
-    <PackageReleaseNotes>This initial alpha release. The goal is to get the fundamentals of Blazor and associated JS interop working. 
-
-1. Support for Initializing Line Chart.
-2. Support for Initializing Bar Chart.
-3. Update Line Charts
-
-Known Isues:
-1. Currently you need buttons to initilize the charts. Dependent on resolution of #495 in Blazor.
-    </PackageReleaseNotes>
+    <Authors>BlazorBits</Authors>
+    <Description>Monaco component for Blazor.</Description>
+    <RepositoryUrl>https://github.com/blazorbits/</RepositoryUrl>
+    <PackageTags>Monaco component for Blazor</PackageTags>
+    <PackageReleaseNotes>Initial preview release</PackageReleaseNotes>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>http://blazorbits.net/</PackageProjectUrl>
+    <PackageIconUrl>https://avatars1.githubusercontent.com/u/39331180?s=200&amp;v=4</PackageIconUrl>
+    <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <Copyright>Daniel Abbatt and David Bond (c) 2018</Copyright>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

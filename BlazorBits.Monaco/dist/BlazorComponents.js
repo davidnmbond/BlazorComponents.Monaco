@@ -1,11 +1,12 @@
 ﻿var BlazorEditors = [];
 Blazor.BlazorEditors = BlazorEditors;
 
-Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorInitialize', (editorModel) => {
+Blazor.registerFunction('BlazorBits.Monaco.Interop.EditorInitialize', (editorModel) => {
 	console.debug(`Registering new editor ${editorModel.Id}...`);
 	let thisEditor = monaco.editor.create(document.getElementById(editorModel.Id), {
 		value: editorModel.Script,
-		language: editorModel.Language
+		language: editorModel.Language,
+		automaticLayout: true
 	});
 
 	if (BlazorEditors.find(e => e.id === editorModel.Id)) {
@@ -19,7 +20,7 @@ Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorInitialize', (edit
 	return true;
 });
 
-Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorGet', (editorModel) => {
+Blazor.registerFunction('BlazorBits.Monaco.Interop.EditorGet', (editorModel) => {
 	console.debug(`Getting editor for ${editorModel.Id}...`);
 	let myEditor = BlazorEditors.find(e => e.id === editorModel.Id);
 	console.debug(`Found: ${myEditor}`);
@@ -33,7 +34,7 @@ Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorGet', (editorModel
 	return editorModel;
 });
 
-Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorSet', (editorModel) => {
+Blazor.registerFunction('BlazorBits.Monaco.Interop.EditorSet', (editorModel) => {
 	console.debug(`Setting editor for ${editorModel.Id}...`);
 	let myEditor = BlazorEditors.find(e => e.id === editorModel.Id);
 	console.debug(`Found: ${myEditor}`);
