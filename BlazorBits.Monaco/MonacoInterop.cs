@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor.Browser.Interop;
 
-namespace BlazorBits.Monaco.Monaco
+namespace BlazorBits.Monaco
 {
 	public static class MonacoInterop
 	{
