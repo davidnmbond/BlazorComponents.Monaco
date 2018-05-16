@@ -4,8 +4,6 @@ Please leave your feedback as an issue or star the repo or let me know on [@davi
 
 This project started from [@ma_khan](https://twitter.com/ma_khan)'s excellent ChartJs Blazor component project codebase.
 
-Currently, starting with a simple [ChartJS](https://github.com/chartjs/Chart.js) implementation.
-
 
 ## Prerequisites
 
