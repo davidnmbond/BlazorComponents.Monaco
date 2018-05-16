@@ -1,37 +1,33 @@
-## Simple Components for Blazor Projects
+## Monaco Component for Blazor
 
-```
-Note: Just as Blazor, this repo is also experimental.
-```
+Please leave your feedback as an issue or star the repo or let me know on [@david_n_m_bond](https://twitter.com/david_n_m_bond).
 
-If you like the idea of this repo leave your feedback as an issue or star the repo or let me know on [@ma_khan](https://twitter.com/ma_khan)
+This project started from [@ma_khan](https://twitter.com/ma_khan)'s excellent ChartJs Blazor component project codebase.
 
-Currently, starting with a simple [ChartJS](https://github.com/chartjs/Chart.js) implementation. 
+Currently, starting with a simple [ChartJS](https://github.com/chartjs/Chart.js) implementation.
 
 
 ## Prerequisites
 
 Don't know what Blazor is? Read [here](https://github.com/aspnet/Blazor)
 
-Complete all Blazor dependencies.
-
-1. Latest VS Preview
-2. DotNetCore 2.1 Preview 2
-
-
-## Installation 
-
-![NuGet](https://img.shields.io/nuget/v/BlazorComponents.svg) ![NuGet Pre Release](https://img.shields.io/nuget/vpre/BlazorComponents.svg)
+Blazor dependencies:
+1. VS 15.7 or higher
+2. DotNetCore 2.1 Preview 2 or higher
 
 
-To Install 
+## Installation
+
+...to follow...
+
+To Install
 
 ```
-Install-Package BlazorComponents
+Install-Package BlazorComponents.Monaco
 ```
-or 
+or
 ```
-dotnet add package BlazorComponents
+dotnet add package BlazorComponents.Monaco
 ```
 
 ## Usage
@@ -39,91 +35,66 @@ dotnet add package BlazorComponents
 1. In cshtml file add this:
 
 ```html
+@page "/"
+@using BlazorComponents.Monaco
+@using BlazorComponents.Shared
+
+<h2>Monaco using Blazor</h2>
 <div class="row">
-    <button class="btn btn-primary" onclick="@UpdateChart">Update Chart </button>
+	<button class="btn btn-primary" onclick="@Reset">Clear</button>
+	<button class="btn btn-primary" onclick="@Update">Read</button>
 </div>
-<ChartJsLineChart ref="lineChartJs" Chart="@blazorLineChartJS" Width="600" Height="300" />
-```
+<MonacoEditor ref="_editor" EditorModel="@_editorModel" Width="600" Height="300" />
+@functions {
+EditorModel _editorModel { get; set; }
+MonacoEditor _editor;
 
-```csharp
-@functions{
+protected override void OnInit()
+{
+	_editorModel = new EditorModel
+	{
+		Language = "csharp",
+		Script = @"using System;
 
-    public ChartJSChart<ChartJsLineDataset> blazorLineChartJS { get; set; } = new ChartJSChart<ChartJsLineDataset>();
-    ChartJsLineChart lineChartJs;
+// Awesomeness
+public class Test
+{
+	public void X()
+	{
+		Console.WriteLine(""Hello world!"");
+	}
+}"
+	};
+}
 
-    protected override void OnInit()
-    {
+public void Update()
+{
+	_editor.EditorUpdate();
+}
 
-        blazorLineChartJS = new ChartJSChart<ChartJsLineDataset>()
-        {
-            ChartType = "line",
-            CanvasId = "myFirstLineChart",
-            Options = new ChartJsOptions()
-            {
-                Text = "Sample chart from Blazor",
-                Display = true,
-                Responsive = false
-            },
-            Data = new ChartJsData<ChartJsLineDataset>()
-            {
-                Labels = new List<string>() { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" },
-                Datasets = new List<ChartJsLineDataset>()
-                 {
-                        new ChartJsLineDataset()
-                        {
-                            BackgroundColor = "#ff6384",
-                            BorderColor = "#ff6384",
-                            Label = "# of Votes from blazor",
-                            Data = new List<int>{ 19,12,5,3,3,2},
-                            Fill = false,
-                            BorderWidth = 2,
-                            PointRadius = 3,
-                            PointBorderWidth=1
-                        }
-                 }
-            }
-        };
-    }
-
-    public void UpdateChart()
-    {
-        //Update existing dataset
-        blazorLineChartJS.Data.Labels.Add($"New{DateTime.Now.Second}");
-        var firstDataSet = blazorLineChartJS.Data.Datasets[0];
-        firstDataSet.Data.Add(DateTime.Now.Second);
-
-        //Add new dataset
-        //blazorLineChartJS.Data.Datasets.Add(new ChartJsLineDataset()
-        //{
-        //    BackgroundColor = "#cc65fe",
-        //    BorderColor = "#cc65fe",
-        //    Label = "# of Votes from blazor 1",
-        //    Data = new List<int> {20,21,12,3,4,4},
-        //    Fill = true,
-        //    BorderWidth = 2,
-        //    PointRadius = 3,
-        //    PointBorderWidth = 1
-        //});
-
-        lineChartJs.UpdateChart(blazorLineChartJS);
-    }
+public void Reset()
+{
+	_editor.EditorSetValue("");
+}
 }
 ```
 
 2. In index.html add:
 
 ```html
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <script type="blazor-boot">
-    </script>
-```
+	<link rel="stylesheet" data-name="vs/editor/editor.main" href="monaco-editor/min/vs/editor/editor.main.css">
+	<script src="monaco-editor/min/vs/loader.js"></script>
 
+...
+
+	<script src="monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+	<script src="monaco-editor/min/vs/editor/editor.main.js"></script>
+	<script type="blazor-boot">
+	</script>
+```
 
 ## Sample Output
 
-Run the project and you will need to click on the Display Chart button. To know more about this limitation read [#495](https://github.com/aspnet/Blazor/issues/495) on the Blazor repo.
-
-Bar Chart Example:
-![Barchart](barchart.png)
+![Editor](editor.png)
 
 
