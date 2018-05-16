@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BlazorComponents.Monaco
+namespace BlazorBits.Monaco.Monaco
 {
 	public class EditorModel
 	{

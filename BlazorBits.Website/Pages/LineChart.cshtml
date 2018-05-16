@@ -1,5 +1,5 @@
 ﻿@page "/LineChart"
-@using BlazorComponents.Shared
+@using BlazorBits.Monaco.Shared
 <h2>Chart JS charts using Blazor</h2>
 <div class="row">
 	<button class="btn btn-primary" onclick="@UpdateChart">Update Chart </button>
@@ -27,19 +27,19 @@
 			{
 				Labels = new List<string>() { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" },
 				Datasets = new List<ChartJsLineDataset>()
-		 {
-				new ChartJsLineDataset()
-				{
-					BackgroundColor = "#ff6384",
-					BorderColor = "#ff6384",
-					Label = "# of Votes from blazor",
-					Data = new List<int>{ 19,12,5,3,3,2},
-					Fill = false,
-					BorderWidth = 2,
-					PointRadius = 3,
-					PointBorderWidth=1
-				}
-		 }
+	 {
+			new ChartJsLineDataset()
+			{
+				BackgroundColor = "#ff6384",
+				BorderColor = "#ff6384",
+				Label = "# of Votes from blazor",
+				Data = new List<int>{ 19,12,5,3,3,2},
+				Fill = false,
+				BorderWidth = 2,
+				PointRadius = 3,
+				PointBorderWidth=1
+			}
+	 }
 			}
 		};
 	}

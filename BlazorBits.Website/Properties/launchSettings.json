@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "TestApplication": {
+    "BlazorBits.Website": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

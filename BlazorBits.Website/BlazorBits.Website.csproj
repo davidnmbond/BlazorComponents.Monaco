@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\BlazorComponents\BlazorComponents.csproj" />
+    <ProjectReference Include="..\BlazorBits.Monaco\BlazorBits.Monaco.csproj" />
   </ItemGroup>
 
   <ItemGroup>

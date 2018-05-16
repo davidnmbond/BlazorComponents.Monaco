@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Blazor.Browser.Rendering;
 using Microsoft.AspNetCore.Blazor.Browser.Services;
 
-namespace TestApplication
+namespace BlazorBits.Website
 {
 	internal static class Program
 	{
