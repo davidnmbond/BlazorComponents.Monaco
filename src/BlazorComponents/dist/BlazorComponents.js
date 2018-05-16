@@ -43,30 +43,51 @@ function initializeChartjsChart(data, type) {
 var BlazorEditors = [];
 Blazor.BlazorEditors = BlazorEditors;
 
-Blazor.registerFunction('BlazorComponents.MonacoInterop.InitializeEditor', (data) => {
-
-	let thisEditor = monaco.editor.create(document.getElementById(data.Id), {
-		value: data.Script,
-		language: data.Language
+Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorInitialize', (editorModel) => {
+	console.debug(`Registering new editor ${editorModel.Id}...`);
+	let thisEditor = monaco.editor.create(document.getElementById(editorModel.Id), {
+		value: editorModel.Script,
+		language: editorModel.Language
 	});
 
-	if (!BlazorEditors.find(currentEditor => currentEditor.Id === data.Id)) {
-		BlazorCharts.push({ id: data.Id, editor: thisEditor });
+	if (BlazorEditors.find(e => e.id === editorModel.Id)) {
+		console.error(`Refused to register duplicate editor ${editorModel.Id}`);
 	}
+	else {
+		console.debug(`Registered new editor ${editorModel.Id}`);
+		BlazorEditors.push({ id: editorModel.Id, editor: thisEditor });
+	}
+
+	return true;
 });
 
-Blazor.registerFunction('BlazorComponents.MonacoInterop.UpdateEditor', (data) => {
-
-	if (!BlazorEditors.find(currentEditor => currentEditor.id === data.Id)) {
-		throw `Could not find a editor with the given id. ${data.Id}`;
+Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorGet', (editorModel) => {
+	console.debug(`Getting editor for ${editorModel.Id}...`);
+	let myEditor = BlazorEditors.find(e => e.id === editorModel.Id);
+	console.debug(`Found: ${myEditor}`);
+	if (!myEditor) {
+		throw `Could not find a editor with id: '${editorModel.Id}'`;
 	}
-	let myEditor = BlazorEditors.find(currentEditor => currentEditor.Id === data.Id);
 
-	let myEditorIndex = BlazorEditors.findIndex(currentEditor => currentEditor.Id === data.Id);
+	// Update the model
+	editorModel.Script = myEditor.editor.getValue();
 
-	data.Script = myEditor.getValue();
+	return editorModel;
+});
 
-	return data;
+Blazor.registerFunction('BlazorComponents.MonacoInterop.EditorSet', (editorModel) => {
+	console.debug(`Setting editor for ${editorModel.Id}...`);
+	let myEditor = BlazorEditors.find(e => e.id === editorModel.Id);
+	console.debug(`Found: ${myEditor}`);
+	if (!myEditor) {
+		throw `Could not find a editor with id: '${editorModel.Id}'`;
+	}
+
+	// Update the editor
+	myEditor.editor.setValue(editorModel.Script);
+	console.debug(`Setting value to success.`);
+
+	return editorModel;
 });
 
 // current JSON utility within Blazor is bare-bone and does not camelCase the response JSON.
